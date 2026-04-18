@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Mining Empire - Smart Version</title>
+    <style>
+        body, html { margin: 0; padding: 0; height: 100%; width: 100%; overflow: hidden; background-color: #0c0d14; }
+        iframe { width: 100%; height: 100%; border: none; }
+        #status { position: fixed; bottom: 10px; left: 10px; color: #555; font-size: 10px; z-index: 999; }
+    </style>
+</head>
+<body>
+
+    <div id="status">جاري التحقق من النسخة المحلية...</div>
+    
+    <!-- تشغيل اللعبة مباشرة من المصدر -->
+    <iframe id="gameFrame" src="https://cdn-consumer.marketjs.com/game/idle-mining-empire/" allow="autoplay; fullscreen; gaming"></iframe>
+
+    <script>
+        // تسجيل الـ Service Worker لحفظ اللعبة أوفلاين
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js').then(function(reg) {
+                document.getElementById('status').innerText = "تم تفعيل وضع العمل بدون إنترنت بنجاح";
+            }).catch(function(err) {
+                document.getElementById('status').innerText = "فشل التخزين المحلي: " + err;
+            });
+        }
+
+        // تحسين الواجهة وحذف الزوائد
+        var frame = document.getElementById('gameFrame');
+        frame.onload = function() {
+            console.log("Game Loaded");
+        };
+    </script>
+</body>
+</html>
